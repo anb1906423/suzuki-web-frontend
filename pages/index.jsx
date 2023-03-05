@@ -99,18 +99,19 @@ export default function Home(products) {
             }
           </div>
         </div>
-        <div className="introduce-box">
-          <Heading title='Giới thiệu' />
-          <div>
-            {
-              intro && intro.map((item, index) => {
-                return (
-                  <p className="text-justify" key={index}>{item.intro}</p>
-                )
-              })
-            }
-          </div>
-        </div>
+        {
+          intro && intro.map((item, index) => {
+            return (
+              item.intro != '' ?
+                <div className="introduce-box">
+                  <Heading title='Giới thiệu' />
+                  <div>
+                    <p className="text-justify" key={index}>{item.intro}</p>
+                  </div>
+                </div> : ''
+            )
+          })
+        }
         <div className="outstanding">
           <Heading title="Sản phẩm nổi bật" />
           <div className="product-container d-flex flex-row flex-wrap justify-content-start">

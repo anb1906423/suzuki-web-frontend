@@ -3,7 +3,6 @@ import Heading from '../components/Heading'
 import Link from 'next/link'
 import Head from 'next/head'
 import axios from './api/axios'
-import Cookie, { useCookies } from 'react-cookie'
 import { homeAPI } from "../config"
 
 import { swtoast } from "../mixins/swal.mixin";
@@ -12,7 +11,6 @@ const LOGIN_URL = `${homeAPI}/login`
 
 const login = () => {
     // const { setAuth } = useAuth();
-    const [cookies, setCookie] = useCookies(['user']);
     const emailRef = useRef();
     const pwdRef = useRef();
 
@@ -49,10 +47,9 @@ const login = () => {
             const roles = response?.data?.roles
             console.log(accessToken);
             // console.log(roles);
-            setCookie('user', response.data)
 
             console.log(response.data);
-            window.location.assign('/admin/tat-ca-xe')
+            window.location.assign('/tat-ca-xe')
             // setAuth({ email, pwd, roles, accessToken });
             setEmail('')
             setPwd('')
