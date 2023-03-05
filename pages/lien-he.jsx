@@ -23,28 +23,7 @@ const Contact = () => {
     console.log(contacts);
     handleGetContacts()
   }, [])
-  const contactInfor = [
-    {
-      icon: <FaMapMarkerAlt />,
-      content: 'Lô 11C, Võ Nguyên Giáp, Quận Cái Răng, TP.Cần Thơ',
-      href: '#'
-    },
-    {
-      icon: <FaPhoneSquareAlt />,
-      content: '0918.941.966 Mr.Văn Tâm',
-      href: '#'
-    },
-    {
-      icon: <FaFacebookSquare />,
-      content: 'Nguyễn Văn Tâm',
-      href: 'https://www.facebook.com/profile.php?id=100047842143889'
-    },
-    {
-      icon: <FaFirefox />,
-      content: 'fordscantho.com',
-      href: '#'
-    },
-  ]
+
   return (
     <div className="contact">
       <Head>
@@ -64,48 +43,64 @@ const Contact = () => {
           contacts && contacts.map((item, index) =>
             <div className='content-wrapper row' key={index}>
               <div className="col-6">
-                <div>
-                  <a href="" className='d-flex'>
-                    <div className="icon-box">
-                      <FaMapMarkerAlt />
-                    </div>
-                    <div className="content-box">
-                      {item.address}
-                    </div>
-                  </a>
-                </div>
-                <div>
-                  <a href="" className='d-flex'>
-                    <div className="icon-box">
-                      <FaPhoneSquareAlt />
-                    </div>
-                    <div className="content-box">
-                      {item.phoneNumber}
-                    </div>
-                  </a>
-                </div>
+                {
+                  item.address != '' ?
+                    <div>
+                      <a href="#" className='d-flex align-items-center'>
+                        <div className="icon-box d-flex align-items-center">
+                          <FaMapMarkerAlt />
+                        </div>
+                        <div className="content-box">
+                          <span>Địa chỉ</span><br />
+                          {item.address}
+                        </div>
+                      </a>
+                    </div> : ''
+                }
+                {
+                  item.phoneNumber != '' ?
+                    <div>
+                      <a href={'tel:' + item.phoneNumber} className='d-flex align-items-center'>
+                        <div className="icon-box d-flex align-items-center">
+                          <FaPhoneSquareAlt />
+                        </div>
+                        <div className="content-box">
+                          <span>Số điện thoại</span><br />
+                          {item.phoneNumber}
+                        </div>
+                      </a>
+                    </div> : ''
+                }
               </div>
               <div className="col-6">
-                <div>
-                  <a href="" className='d-flex'>
-                    <div className="icon-box">
-                      <FaMailBulk />
-                    </div>
-                    <div className="content-box">
-                      {item.email}
-                    </div>
-                  </a>
-                </div>
-                <div>
-                  <a href="" className='d-flex'>
-                    <div className="icon-box">
-                      <FaFacebookSquare />
-                    </div>
-                    <div className="content-box">
-                      {item.linkToFace}
-                    </div>
-                  </a>
-                </div>
+                {
+                  item.email != '' ?
+                    <div>
+                      <a href={'mailto:' + item.email} className='d-flex align-items-center'>
+                        <div className="icon-box d-flex align-items-center">
+                          <FaMailBulk />
+                        </div>
+                        <div className="content-box">
+                          <span>Email</span><br />
+                          {item.email}
+                        </div>
+                      </a>
+                    </div> : ''
+                }
+                {
+                  item.linkToFace != '' ?
+                    <div>
+                      <a href={item.linkToFace} className='d-flex align-items-center'>
+                        <div className="icon-box d-flex align-items-center">
+                          <FaFacebookSquare />
+                        </div>
+                        <div className="content-box">
+                          <span>Facebook</span><br />
+                          {item.linkToFace}
+                        </div>
+                      </a>
+                    </div> : ''
+                }
               </div>
             </div>
           )

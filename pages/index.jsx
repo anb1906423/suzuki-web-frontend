@@ -16,6 +16,8 @@ import { homeAPI } from "../config"
 
 export default function Home(products) {
   const [cars, setCars] = useState([])
+  const [intro, setIntro] = useState([])
+
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
@@ -33,28 +35,20 @@ export default function Home(products) {
       controller.abort();
     }
   }, [])
-  const listAccess = [
-    {
-      icon: <FaCarAlt />,
-      content: 'Tất cả xe',
-      href: '/san-pham'
-    },
-    {
-      icon: <FaCommentDollar />,
-      content: 'Nhận báo giá',
-      href: '/nhan-bao-gia'
-    },
-    {
-      icon: <FaPhoneSquareAlt />,
-      content: 'Tư vấn trực tiếp 0918.941.966',
-      href: 'tel:0918941966'
-    },
-    {
-      icon: <FaFacebookSquare />,
-      content: 'Tư vấn qua facebook',
-      href: 'https://www.facebook.com/profile.php?id=100047842143889'
-    },
-  ]
+
+  useEffect(() => {
+    const handleGetIntro = async () => {
+      fetch(`${homeAPI}/intro/get-all`)
+        .then((res) => res.json())
+        .then((intro) => {
+          console.log(intro)
+          setIntro(intro)
+        })
+    }
+    console.log(intro);
+    handleGetIntro()
+  }, [])
+
   const countList = [
     {
       icon: <FaChartLine />,
@@ -81,7 +75,7 @@ export default function Home(products) {
   return (
     <div className={styles.main}>
       <Head>
-        <title>Đại lý ủy quyền chính thức của Ford tại Cần Thơ</title>
+        <title>Đại lý ủy quyền chính thức của Suzuki tại Cần Thơ</title>
         <meta property="og:image" content="https://www.ford.com.vn/content/ford/vn/vi_vn/site-wide-content/billboard-carousels/explorer-overview-carousel/jcr:content/par/billboard_1441502915/imageComponent/image.imgs.full.high.jpg" />
         <meta name="title" content="Ford Cần Thơ - Đại lý ủy quyền chính thức của Ford tại Việt Nam" />
         <meta name='revisit-after' content='1 days' />
@@ -94,7 +88,7 @@ export default function Home(products) {
       <div className={styles.container}>
         <CarouselComponent />
         <div className="counter-box">
-          <Heading title="Vì sao khách hàng luôn tin tưởng và lựa chọn Ford Cần Thơ?" />
+          <Heading title="Vì sao khách hàng luôn tin tưởng và lựa chọn Suzuki Cần Thơ?" />
           <div className="couter-row d-flex justify-content-around">
             {
               countList.map((item, i) => {
@@ -108,7 +102,13 @@ export default function Home(products) {
         <div className="introduce-box">
           <Heading title='Giới thiệu' />
           <div>
-            <p className="">"Cần Thơ Ford - Đại lý ủy quyền chính thức của Ford Việt Nam - Là Đại lý lớn nhất, uy tín nhất tại đồng bằng sông Cửu Long, vận hành theo tiêu chuẩn QualityCare, Showroom theo tiêu chuẩn Brand@Retail mới nhất của Ford toàn cầu, có tổng diện tích xây dựng lên đến 5000m2, với hơn 150 nhân viên được đào tạo bài bản, chuyên nghiệp."</p>
+            {
+              intro && intro.map((item, index) => {
+                return (
+                  <p className="text-justify" key={index}>{item.intro}</p>
+                )
+              })
+            }
           </div>
         </div>
         <div className="outstanding">
@@ -128,7 +128,7 @@ export default function Home(products) {
         </div>
 
         <div className="undertake-wrapper position-relative">
-          <Heading title="Cam kết khi mua xe tại Ford - Cần Thơ" />
+          <Heading title="Cam kết khi mua xe tại Suzuki - Cần Thơ" />
           <div className="undertake-box d-flex flex-wrap justify-content-around">
             <UndertakeItem icon={<FaMoneyCheckAlt className="icon-item-undertake" />} title="Thanh toán và nhận xe nhanh chóng" des="Ford Cần Thơ luôn cam kết mang lại mức giá ưu đãi nhất cho quý khách với thời gian giao xe nhanh nhất" />
             <UndertakeItem icon={<FaCalendarCheck className="icon-item-undertake" />} title="Cung cấp các dòng xe chính hãng" des="Ford Cần Thơ luôn cung cấp các dòng xe chính hãng được sản xuất tại Việt Nam và nhập khẩu với các tiêu chuẩn toàn cầu" />
