@@ -1,11 +1,10 @@
 import React from 'react'
 
 const ProductItem = (props) => {
-    const makeNewPrice = (price) => {
-        if(price.includes('0')) {
-            return price + ' VNĐ'
-        } return price
+    const addPointToPrice = (price) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     }
+
     return (
         <div className="product">
             <div className="product-link d-flex align-items-center justify-content-center">
@@ -17,7 +16,7 @@ const ProductItem = (props) => {
                 </div>
                 <div className="price-box d-flex flex-wrap align-items-center justify-content-center">
                     <span>Giá từ:&nbsp;</span>
-                    <span className="price text-danger"><b>{makeNewPrice(props.price)}</b></span>
+                    <span className="price text-danger"><b>{addPointToPrice(props.price)} VNĐ</b></span>
                 </div>
             </div>
         </div>

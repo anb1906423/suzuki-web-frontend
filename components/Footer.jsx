@@ -62,20 +62,20 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="col-xs-6 col-md-3">
-              <h6>Contact</h6>
-              {
-                contacts && contacts.map((item, index) => {
-                  return (
-                    <ul key={index} className="footer-links">
+            {
+              contacts && contacts.map((item, index) => {
+                return (
+                  <div key={index} className="col-xs-6 col-md-3">
+                    <h6>Contact</h6>
+                    <ul className="footer-links">
                       <li><a href="#">{item.address}</a></li>
                       <li><a href={'tel:' + item.phoneNumber}>{item.phoneNumber}</a></li>
                       <li><a href={'mailto:' + item.email}>{item.email}</a></li>
                     </ul>
-                  )
-                })
-              }
-            </div>
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
         <div className="container">

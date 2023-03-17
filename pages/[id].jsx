@@ -32,12 +32,12 @@ const ProductDetail = (products) => {
                                     <meta name="title" content={item.name} />
                                     <meta name="description" content={item.description} />
                                     <meta name='robots' content='index, follow' />
-                                    <meta name="author" content="ford cần thơ"></meta>
+                                    <meta name="author" content="Suzuki cần thơ"></meta>
                                     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                                     <meta name='revisit-after' content='1 days' />
                                     <meta http-equiv="content-language" content="vi" />
                                     <meta name='city' content='Cần Thơ' />
-                                    <meta name='keywords' content='ford, ford ranger xls, ford everest, Territory, giá xe ford' />
+                                    <meta name='keywords' content='Suzuki, thông số xe' />
                                 </Head>
                                 <div className="product-infor d-flex flex-row flex-wrap justify-content-start">
                                     <div className="product-imgs d-flex justify-content-center">
@@ -49,7 +49,7 @@ const ProductDetail = (products) => {
                                             <div className="price-group d-flex justify-content-between">
                                                 <b>Giá bán:</b><h4 className="text-danger">{item.price}&nbsp;VNĐ</h4>
                                             </div>
-                                            {/* <p dangerouslySetInnerHTML={{ __html: item.description }}></p> */}
+                                            <p dangerouslySetInnerHTML={{ __html: item.description }}></p>
                                         </div>
                                     </div>
                                 </div>

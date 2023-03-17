@@ -14,9 +14,17 @@ import {
 } from 'react-icons/fa'
 import { homeAPI } from "../config"
 
+const iconList =[
+  <FaMoneyCheckAlt className="icon-item-undertake" />,
+  <FaCalendarCheck className="icon-item-undertake" />,
+  <FaHandshake className="icon-item-undertake" />
+]
+
 export default function Home(products) {
   const [cars, setCars] = useState([])
   const [intro, setIntro] = useState([])
+  const [overviews, setOverviews] = useState([])
+  const [undertake, setUndertake] = useState([])
 
   useEffect(() => {
     let isMounted = true;
@@ -41,72 +49,87 @@ export default function Home(products) {
       fetch(`${homeAPI}/intro/get-all`)
         .then((res) => res.json())
         .then((intro) => {
-          console.log(intro)
           setIntro(intro)
         })
     }
-    console.log(intro);
+
     handleGetIntro()
   }, [])
 
-  const countList = [
-    {
-      icon: <FaChartLine />,
-      value: '17+',
-      text: 'Năm hoạt động'
-    },
-    {
-      icon: <FaUserCheck />,
-      value: '150+',
-      text: 'Nhân viên'
-    },
-    {
-      icon: <FaCar />,
-      value: '2500+',
-      text: 'Xe đã bán'
-    },
-    {
-      icon: <FaUsers />,
-      value: '98%',
-      text: 'KH hài lòng'
-    },
-  ]
+  useEffect(() => {
+    const handleGetOverview = async () => {
+      fetch(`${homeAPI}/overview/get-all`)
+        .then((res) => res.json())
+        .then((overview) => {
+          setOverviews(overview)
+        })
+    }
+
+    handleGetOverview()
+  }, [])
+
+  useEffect(() => {
+    const handleGetUndertake = async () => {
+      fetch(`${homeAPI}/undertake/get-all`)
+        .then((res) => res.json())
+        .then((undertake) => {
+          setUndertake(undertake)
+        })
+    }
+
+    handleGetUndertake()
+  }, [])
 
   return (
     <div className={styles.main}>
       <Head>
         <title>Đại lý ủy quyền chính thức của Suzuki tại Cần Thơ</title>
-        <meta property="og:image" content="https://www.ford.com.vn/content/ford/vn/vi_vn/site-wide-content/billboard-carousels/explorer-overview-carousel/jcr:content/par/billboard_1441502915/imageComponent/image.imgs.full.high.jpg" />
-        <meta name="title" content="Ford Cần Thơ - Đại lý ủy quyền chính thức của Ford tại Việt Nam" />
+        <meta name="title" content="Suzuki Cái Răng Cần Thơ - Đại lý ủy quyền chính thức của Suzuki tại Việt Nam" />
         <meta name='revisit-after' content='1 days' />
         <meta name='city' content='Cần Thơ' />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta httpEquiv="content-language" content="vi" />
-        <meta name='keywords' content='ford ranger xls, Sản phẩm nổi bật của ford, ford territory, ô tô ford, cam kết khi mua xe tại ford - cần thơ, xe chính hãng, ford cần thơ' />
-        <meta name="description" content="Trang chủ - Website trưng bày, tham khảo, chi tiết thông số cũng như giá bán các dòng xe Ford chính hãng. Tư vấn tận tình, giá cả hợp lý, đáng tin cậy, tự hào được nhiều khách hàng tin tưởng lựa chọn." />
+        <meta name='keywords' content='xe ô tô suzuki, suzuki cần thơ, suzuki xl7' />
+        <meta name="description" content="Trang chủ - Website trưng bày, tham khảo, chi tiết thông số cũng như giá bán các dòng xe ô tô Suzuki chính hãng. Tư vấn tận tình, giá cả hợp lý, đáng tin cậy, tự hào được nhiều khách hàng tin tưởng lựa chọn." />
       </Head>
       <div className={styles.container}>
         <CarouselComponent />
-        <div className="counter-box">
-          <Heading title="Vì sao khách hàng luôn tin tưởng và lựa chọn Suzuki Cần Thơ?" />
-          <div className="couter-row d-flex justify-content-around">
-            {
-              countList.map((item, i) => {
-                return (
-                  <CounterItem key={i} value={item.value} icon={item.icon} text={item.text} />
-                )
-              })
-            }
-          </div>
-        </div>
+        {
+          overviews && overviews.map((item, i) => {
+            return (
+              item.heading != '' ?
+                <div key={i} className="counter-box">
+                  <Heading title={item.heading} />
+                  <div className="couter-row d-flex flex-wrap justify-content-around">
+                    {
+                      item.yearOfOperation != '' ?
+                        <CounterItem value={item.yearOfOperation} icon={<FaChartLine />} text="Năm hoạt động" /> : ''
+                    }
+                    {
+                      item.staff != '' ?
+                        <CounterItem value={item.staff} icon={<FaUsers />} text="Nhân viên" /> : ''
+                    }
+                    {
+                      item.carsSold != '' ?
+                        <CounterItem value={item.carsSold} icon={<FaCar />} text="Xe đã bán" /> : ''
+                    }
+                    {
+                      item.customerSatisfied != '' ?
+                        <CounterItem value={item.customerSatisfied} icon={<FaUserCheck />} text="KH hài lòng" /> : ''
+                    }
+                  </div>
+                </div> : ''
+            )
+          })
+        }
         {
           intro && intro.map((item, index) => {
             return (
               item.intro != '' ?
-                <div className="introduce-box">
+                <div key={index} className="introduce-box">
                   <Heading title='Giới thiệu' />
                   <div>
-                    <p className="text-justify" key={index}>{item.intro}</p>
+                    <p className="text-justify">{item.intro}</p>
                   </div>
                 </div> : ''
             )
@@ -117,7 +140,7 @@ export default function Home(products) {
           <div className="product-container d-flex flex-row flex-wrap justify-content-start">
             {
               cars.map((item, index) => {
-                if (index < 4) {
+                if (item.outStanding && item.state) {
                   return (
                     <ProductItem className="" key={index} name={item.name} src={item.src} href={item.id} price={item.price} />
                   )
@@ -128,14 +151,25 @@ export default function Home(products) {
           </div>
         </div>
 
-        <div className="undertake-wrapper position-relative">
-          <Heading title="Cam kết khi mua xe tại Suzuki - Cần Thơ" />
-          <div className="undertake-box d-flex flex-wrap justify-content-around">
-            <UndertakeItem icon={<FaMoneyCheckAlt className="icon-item-undertake" />} title="Thanh toán và nhận xe nhanh chóng" des="Ford Cần Thơ luôn cam kết mang lại mức giá ưu đãi nhất cho quý khách với thời gian giao xe nhanh nhất" />
-            <UndertakeItem icon={<FaCalendarCheck className="icon-item-undertake" />} title="Cung cấp các dòng xe chính hãng" des="Ford Cần Thơ luôn cung cấp các dòng xe chính hãng được sản xuất tại Việt Nam và nhập khẩu với các tiêu chuẩn toàn cầu" />
-            <UndertakeItem icon={<FaHandshake className="icon-item-undertake" />} title="Dịch vụ bảo hành, bảo dưỡng hàng đầu" des="Ford Cần Thơ luôn cam kết chăm sóc kỹ lưỡng và chế độ hậu mãi tốt nhất cho Quý Khách khi mua xe ô tô tại đây" />
-          </div>
-        </div>
+        {undertake.length === 0 ? (
+          ''
+        ) : (
+          undertake.map((item, index) => (
+            <div key={index} className="undertake-wrapper position-relative">
+              <Heading title={item.heading} />
+              <div className="undertake-box d-flex flex-wrap justify-content-around">
+                {item.title && item.description && iconList && item.title.map((title, i) => (
+                  <UndertakeItem
+                    key={i}
+                    icon={iconList[i]}
+                    title={title}
+                    des={item.description[i]}
+                  />
+                ))}
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   )

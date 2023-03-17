@@ -3,11 +3,11 @@ import Heading from '../components/Heading'
 import Head from 'next/head'
 import axios from 'axios'
 import { homeAPI } from '../config'
+import Map from '../components/Map'
 
 import {
   FaMapMarkerAlt,
   FaPhoneSquareAlt,
-  FaFirefox,
   FaFacebookSquare,
   FaMailBulk
 } from 'react-icons/fa'
@@ -27,15 +27,14 @@ const Contact = () => {
   return (
     <div className="contact">
       <Head>
-        <title>Đại lý ủy quyền chính thức của Ford tại Cần Thơ</title>
-        <meta property="og:image" content="https://www.ford.com.vn/content/ford/vn/vi_vn/site-wide-content/billboard-carousels/explorer-overview-carousel/jcr:content/par/billboard_1441502915/imageComponent/image.imgs.full.high.jpg" />
-        <meta name="title" content="Liên hệ đại lý ô tô Ford thành phố Cần Thơ" />
+        <title>Liên hệ</title>
+        <meta name="title" content="Liên hệ đại lý ô tô Suzuki" />
         <meta name='revisit-after' content='1 days' />
         <meta http-equiv="content-language" content="vi" />
         <meta name='city' content='Cần Thơ' />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name='keywords' content='ford ranger xls, fordscantho.com, ford cần thơ, liên hệ ford cần thơ, đại lý ford, ô tô ford' />
-        <meta name="description" content="Liên hệ nhận báo giá và tư vấn" />
+        <meta name='keywords' content='Suzuki cần thơ, suzuki cái răng, liên hệ ô tô suzuki' />
+        <meta name="description" content="Liên hệ ô tô Suzuki để nhận mức giá ưu đãi nhất" />
       </Head>
       <Heading title="Liên hệ" />
       <div className="contact-content">
@@ -107,6 +106,7 @@ const Contact = () => {
         }
       </div>
       <div className="map">
+        {/* <Map /> */}
         <img className="w-100 h-auto" src="./img/map.png" alt="" />
       </div>
     </div>

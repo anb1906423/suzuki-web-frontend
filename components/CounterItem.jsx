@@ -2,7 +2,7 @@ import React from 'react'
 
 const CounterItem = (props) => {
     return (
-        <div className="counter-item text-center position-relative">
+        <div className="col counter-item text-center position-relative">
             <div className="d-flex justify-content-center align-items-center counter-icon position-absolute">
                 {props.icon}
             </div>

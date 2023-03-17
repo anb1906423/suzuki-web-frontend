@@ -13,6 +13,16 @@ const PWD_REGEX = /^[a-zA-Z0-9]+$/
 const REGISTER_URL = `${homeAPI}/register`
 
 const register = () => {
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    const getAllUsers = async () => {
+      const result = await axios.get(`${homeAPI}`)
+      setUsers(result.data)
+    }
+    getAllUsers()
+  }, [])
+
   const fullNameRef = useRef();
   const phoneNumberRef = useRef();
   const paymentRef = useRef();
@@ -33,7 +43,7 @@ const register = () => {
   const [validEmail, setValidEmail] = useState(false)
   const [emailFocus, setEmailFocus] = useState(false)
 
-  const [pwd, setPwd] = useState('')
+  const [password, setPassword] = useState('')
   const [validPwd, setValidPwd] = useState(false)
   const [pwdFocus, setPwdFocus] = useState(false)
 
@@ -60,7 +70,7 @@ const register = () => {
 
   useEffect(() => {
     setErr('')
-  }, [fullName, email, phoneNumber, isCash, pwd, model])
+  }, [fullName, email, phoneNumber, isCash, password, model])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,7 +101,7 @@ const register = () => {
     // }
     try {
       var response = await axios.post(REGISTER_URL,
-        JSON.stringify({ fullName, phoneNumber, isCash, email, pwd, model }),
+        JSON.stringify({ fullName, phoneNumber, isCash, email, password, model }),
         {
           headers: {
             'Content-Type': 'application/json'
@@ -110,7 +120,7 @@ const register = () => {
       setFullname('')
       setPhoneNumber('')
       setEmail('')
-      setPwd('')
+      setPassword('')
       setModel('')
       setSuccess("Chúng tôi đã nhận được yêu cầu báo giá của quý khách!")
     } catch (err) {
@@ -133,15 +143,14 @@ const register = () => {
   return (
     <div className="account-page register">
       <Head>
-        <title>Đại lý ủy quyền chính thức của Ford tại Cần Thơ</title>
-        <meta property="og:image" content="https://www.ford.com.vn/content/ford/vn/vi_vn/site-wide-content/billboard-carousels/explorer-overview-carousel/jcr:content/par/billboard_1441502915/imageComponent/image.imgs.full.high.jpg" />
-        <meta name="title" content="Giá ô tô ford thành phố Cần Thơ hôm nay" />
+        <title>Đăng ký nhận báo giá</title>
+        <meta name="title" content="Đăng ký nhận báo giá ngay hôm nay" />
         <meta name='revisit-after' content='1 days' />
         <meta http-equiv="content-language" content="vi" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name='city' content='Cần Thơ' />
-        <meta name='keywords' content='ford ranger xls, giá xe ford, giá ô tô ford cần thơ, giá territory, ô tô ford, ford cần thơ' />
-        <meta name="description" content="Nhận báo giá ô tô Ford chi nhánh Cần Thơ nhanh, chính xác và ưu đãi nhất." />
+        <meta name='keywords' content='xl7, báo giá ô tô suzuki' />
+        <meta name="description" content="Nhận báo giá ô tô Suzuki chi nhánh Cái Răng thành phố Cần Thơ nhanh, chính xác và ưu đãi nhất." />
       </Head>
       <Heading title="Đăng ký nhận báo giá" />
       <div className="register-wrapper">
@@ -221,25 +230,30 @@ const register = () => {
                   name="payment"
                   type="radio"
                   onClick={() => setIsCash(false)}
-                  // checked={!isCash}
+                // checked={!isCash}
                 />
                 <label type="" htmlFor="installment">Trả góp</label>
               </div>
             </div>
-            <label htmlFor="pwd" className=" d-none">Mật khẩu:</label>
-            <input
-              className="w-100 d-none"
-              type="password"
-              name="pwd"
-              id="pwd"
-              placeholder="Mật khẩu"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              ref={pwdRef}
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
-            // required
-            />
+            {
+              users.length <= 1 ?
+                <>
+                  <label htmlFor="pwd" className="">Mật khẩu:</label>
+                  <input
+                    className="w-100"
+                    type="password"
+                    name="pwd"
+                    id="pwd"
+                    placeholder="Mật khẩu"
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    ref={pwdRef}
+                    onFocus={() => setPwdFocus(true)}
+                    onBlur={() => setPwdFocus(false)}
+                  // required
+                  />
+                </> : ''
+            }
             <p className="text-danger">{err}</p>
             <p className="text-success">{success}</p>
             <button className="btn submit-btn log-up-btn w-100 text-white" type="submit">Đăng ký</button>
