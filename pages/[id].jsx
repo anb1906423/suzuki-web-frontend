@@ -39,18 +39,26 @@ const ProductDetail = (products) => {
                                     <meta name='city' content='Cần Thơ' />
                                     <meta name='keywords' content='Suzuki, thông số xe' />
                                 </Head>
-                                <div className="product-infor d-flex flex-row flex-wrap justify-content-start">
-                                    <div className="product-imgs d-flex justify-content-center">
-                                        <img src={item.src} alt="" />
-                                    </div>
-                                    <div className="product-content">
-                                        <div className="product-name">
-                                            <h3>{item.name}</h3>
-                                            <div className="price-group d-flex justify-content-between">
-                                                <b>Giá bán:</b><h4 className="text-danger">{item.price}&nbsp;VNĐ</h4>
-                                            </div>
-                                            <p dangerouslySetInnerHTML={{ __html: item.description }}></p>
+                                <div>
+                                    <div className="product-infor d-flex flex-row flex-wrap justify-content-start">
+                                        <div className="product-imgs d-flex justify-content-center">
+                                            <img src={item.src || item.imageTemp} alt="" />
                                         </div>
+                                        <div className="product-content">
+                                            <div className="product-name">
+                                                <h3>{item.name}</h3>
+                                                <div className="price-group d-flex justify-content-between">
+                                                    <b>Giá bán:</b><h4 className="text-danger">{item.price}&nbsp;VNĐ</h4>
+                                                </div>
+                                                <div>
+                                                    <p dangerouslySetInnerHTML={{ __html: item.description }}></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <Heading className='text-center' title={`Chi tiết xe ${item.name}`} />
+                                        <p dangerouslySetInnerHTML={{ __html: item.moreInfo }}></p>
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +72,7 @@ const ProductDetail = (products) => {
                     otherProducts.map((item, index) => {
                         if (index <= 2 && item.id !== productId) {
                             return (
-                                <ProductItem className="" key={index} name={item.name} src={item.src} href={item.id} price={item.price} />
+                                <ProductItem className="" key={index} name={item.name} imageTemp={item.imageTemp} src={item.src} href={item.id} price={item.price} />
                             )
                         }
                     })

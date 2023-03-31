@@ -142,7 +142,7 @@ export default function Home(products) {
               cars.map((item, index) => {
                 if (item.outStanding && item.state) {
                   return (
-                    <ProductItem className="" key={index} name={item.name} src={item.src} href={item.id} price={item.price} />
+                    <ProductItem className="" imageTemp={item.imageTemp} key={index} name={item.name} src={item.src} href={item.id} price={item.price} />
                   )
                 }
               })

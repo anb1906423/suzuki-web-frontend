@@ -5,7 +5,8 @@
 }
 
 .product-detail-wrapper {
-    margin: 12px 0;
+    margin: 12px auto;
+    max-width: 1200px;
 }
 
 .product-detail-wrapper table {
