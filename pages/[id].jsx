@@ -10,20 +10,30 @@ const ProductDetail = (products) => {
     const productId = router.query.id;
     const [cars, setCars] = useState([])
     const [otherProducts, setOtherProducts] = useState([])
+    
     useEffect(() => {
-        fetch(homeAPI + '/admin')
-            .then((res) => res.json())
-            .then((cars) => {
-                setCars(cars)
-                setOtherProducts(cars.sort(() => Math.random() - Math.random()))
-            })
-    }, [])
+        try {
+            fetch(homeAPI + '/admin')
+                .then((res) => res.json())
+                .then((cars) => {
+                    setCars(cars);
+                    setOtherProducts(cars.sort(() => Math.random() - Math.random()));
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+    
 
     return (
         <div className='product-detail-wrapper'>
             {
                 cars.map((item, index) => {
                     if (item.id === productId) {
+                        console.log(item);
                         return (
                             <div className='product-detail' key={index}>
                                 <Head>
@@ -57,13 +67,13 @@ const ProductDetail = (products) => {
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <Heading className='text-center' title={`Chi tiết xe ${item.name}`} />
+                                        <Heading className='text-center' title={`Chi tiết ${item.name}`} />
                                         <p dangerouslySetInnerHTML={{ __html: item.moreInfo }}></p>
                                     </div>
                                 </div>
                             </div>
                         )
-                    }
+                    } else return (<></>)
                 })
             }
             <Heading title="Một vài mẫu xe khác" />

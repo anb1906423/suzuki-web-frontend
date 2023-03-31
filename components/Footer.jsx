@@ -46,7 +46,7 @@ const Footer = () => {
               {
                 intro && intro.map((item, index) => {
                   return (
-                    <p className="text-justify" key={index}>{item.intro}</p>
+                    <p style={{ textAlign: "justify" }} className="" key={index}>{item.intro}</p>
                   )
                 })
               }
