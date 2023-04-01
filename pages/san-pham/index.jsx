@@ -32,7 +32,7 @@ const Product = (products) => {
           cars.map((item, index) => {
             if (item.type === 'Xe du lịch' && item.newProduct && item.state) {
               return (
-                <ProductItem className="" key={index} name={item.name} imageTemp={item.imageTemp} src={item.src} href={item.id} price={item.price} />
+                <ProductItem className="" key={index} name={item.name} imageTemp={item.imageTemp} src={item.src} href={`/san-pham/${item.id}`} price={item.price} />
               )
             }
           })
