@@ -7,6 +7,10 @@ module.exports = async (phase, { defaultConfig }) => {
     async rewrites() {
       return [
         {
+          source: '/',
+          destination: '/index',
+        },
+        {
           source: "/:id",
           destination: "/[id]",
         },
