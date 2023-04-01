@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import ProductItem from '../components/ProductItem'
-import Heading from '../components/Heading'
+import ProductItem from '../../components/ProductItem'
+import Heading from '../../components/Heading'
 import Head from 'next/head'
-import { homeAPI } from "../config"
+import { homeAPI } from "../../config"
 
 const Product = (products) => {
   const [cars, setCars] = useState([])
