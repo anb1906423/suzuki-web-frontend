@@ -1,37 +1,23 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import { useRouter } from 'next/router'
 import Heading from '../components/Heading'
 import ProductItem from '../components/ProductItem'
 import Head from 'next/head'
 import { homeAPI } from "../config"
-import { isBrowser } from 'react-device-detect';
 
-const ProductDetail = (products) => {
-    // const router = useRouter();
-    // const productId = router.query.id;
+const isBrowser = typeof window !== "undefined";
 
-    const [pathName, setPathName] = useState()
-
-    const isBrowser = typeof window !== "undefined";
-    useEffect(() => {
-        if (isBrowser) {
-            // Đoạn mã của bạn sử dụng window ở đây
-            setPathName(window.location.pathname.substring(1));
-        }
-    }, [])
-
+const ProductDetail = () => {
+    const router = useRouter();
     const [cars, setCars] = useState([])
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState('')
-    const [imageTemp, setImageTemp] = useState('')
-    const [src, setSrc] = useState('')
-    const [id, setId] = useState('')
-    const [description, setDescription] = useState('')
-    const [newProduct, setNewProduct] = useState()
-    const [type, setType] = useState('')
-    const [moreInfo, setMoreInfo] = useState('')
-
     const [otherProducts, setOtherProducts] = useState([])
+
+    const addPointToPrice = (price) => {
+        if (price !== undefined) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+        return "";
+    }
 
     useEffect(() => {
         try {
@@ -49,20 +35,15 @@ const ProductDetail = (products) => {
         }
     }, []);
 
-    useEffect(() => {
-        cars && cars.map((item) => {
-            if (item.id == pathName) {
-                setName(item.name)
-                setPrice(item.price)
-                setDescription(item.description)
-                setMoreInfo(item.moreInfo)
-                setImageTemp(item.imageTemp)
-                setNewProduct(item.newProduct)
-                setType(item.type)
-                setSrc(item.src)
-            }
-        })
-    }, [cars])
+    const pathName = useMemo(() => {
+        return isBrowser ? window.location.pathname.substring(1) : '';
+    }, []);
+
+    const product = useMemo(() => {
+        return cars.find((item) => item.id == pathName) || {};
+    }, [pathName, cars]);
+
+    const { name, price, description, moreInfo, imageTemp, src, id, newProduct, type } = product;
 
     return (
         <div className='product-detail-wrapper'>
@@ -89,7 +70,7 @@ const ProductDetail = (products) => {
                             <div className="product-name">
                                 <h3>{name}</h3>
                                 <div className="price-group d-flex justify-content-between">
-                                    <b>Giá bán:</b><h4 className="text-danger">{price}&nbsp;VNĐ</h4>
+                                    <b>Giá bán:</b><h4 className="text-danger">{addPointToPrice(price)}&nbsp;VNĐ</h4>
                                 </div>
                                 <div>
                                     <p dangerouslySetInnerHTML={{ __html: description }}></p>
