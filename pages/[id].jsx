@@ -10,15 +10,15 @@ const ProductDetail = (products) => {
     const router = useRouter();
     const productId = router.query.id;
 
-    const [pathName, setPathName] = useState()
+    // const [pathName, setPathName] = useState()
 
-    const isBrowser = typeof window !== "undefined";
-    useEffect(() => {
-        if (isBrowser) {
-            // Đoạn mã của bạn sử dụng window ở đây
-            setPathName(window.location.pathname.substring(1));
-        }
-    }, [pathName])
+    // const isBrowser = typeof window !== "undefined";
+    // useEffect(() => {
+    //     if (isBrowser) {
+    //         // Đoạn mã của bạn sử dụng window ở đây
+    //         setPathName(window.location.pathname.substring(1));
+    //     }
+    // }, [])
 
     const [cars, setCars] = useState([])
     const [name, setName] = useState('')
@@ -108,7 +108,7 @@ const ProductDetail = (products) => {
             <div className="other-products w-100 d-flex flex-row flex-wrap align-items-center justify-content-around">
                 {
                     otherProducts.map((item, index) => {
-                        if (index <= 2 && item.id !== pathName) {
+                        if (index <= 2 && item.id !== productId) {
                             return (
                                 <ProductItem className="" key={index} name={item.name} imageTemp={item.imageTemp} src={item.src} href={item.id} price={item.price} />
                             )
