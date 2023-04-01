@@ -7,8 +7,8 @@ module.exports = async (phase, { defaultConfig }) => {
     async rewrites() {
       return [
         {
-          source: "/products/:id",
-          destination: "/products/[id]",
+          source: "/:id",
+          destination: "/[id]",
         },
       ];
     },
