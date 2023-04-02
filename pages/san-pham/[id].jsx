@@ -1,53 +1,53 @@
 import React, { useState, useEffect, useMemo } from "react"
-// import { useRouter } from 'next/router'
-// import Heading from '../components/Heading'
-// import ProductItem from '../components/ProductItem'
-// import Head from 'next/head'
-// import { homeAPI } from "../config"
+import { useRouter } from 'next/router'
+import Heading from "../../components/Heading"
+import ProductItem from '../../components/ProductItem'
+import Head from 'next/head'
+import { homeAPI } from "../../config"
 
-// const isBrowser = typeof window !== "undefined";
+const isBrowser = typeof window !== "undefined";
 
 const ProductDetail = () => {
-    // const router = useRouter();
-    // const [cars, setCars] = useState([])
-    // const [otherProducts, setOtherProducts] = useState([])
+    const router = useRouter();
+    const [cars, setCars] = useState([])
+    const [otherProducts, setOtherProducts] = useState([])
 
-    // const addPointToPrice = (price) => {
-    //     if (price !== undefined) {
-    //         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    //     }
-    //     return "";
-    // }
+    const addPointToPrice = (price) => {
+        if (price !== undefined) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+        return "";
+    }
 
-    // useEffect(() => {
-    //     try {
-    //         fetch(homeAPI + '/admin')
-    //             .then((res) => res.json())
-    //             .then((cars) => {
-    //                 setCars(cars);
-    //                 setOtherProducts(cars.sort(() => Math.random() - Math.random()));
-    //             })
-    //             .catch((error) => {
-    //                 console.log(error);
-    //             });
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }, []);
+    useEffect(() => {
+        try {
+            fetch(homeAPI + '/admin')
+                .then((res) => res.json())
+                .then((cars) => {
+                    setCars(cars);
+                    setOtherProducts(cars.sort(() => Math.random() - Math.random()));
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
 
-    // const pathName = useMemo(() => {
-    //     return isBrowser ? window.location.pathname.substring(1) : '';
-    // }, []);
+    const pathName = useMemo(() => {
+        return isBrowser ? window.location.pathname.split("/").pop() : '';
+    }, []);
 
-    // const product = useMemo(() => {
-    //     return cars.find((item) => item.id == pathName) || {};
-    // }, [pathName, cars]);
+    const product = useMemo(() => {
+        return cars.find((item) => item.id == pathName) || {};
+    }, [pathName, cars]);
 
-    // const { name, price, description, moreInfo, imageTemp, src, id, newProduct, type } = product;
+    const { name, price, description, moreInfo, imageTemp, src, id, newProduct, type } = product;
 
     return (
         <div className='product-detail-wrapper'>
-            {/* <div className='product-detail'>
+            <div className='product-detail'>
                 <Head>
                     <title>{name}</title>
                     <meta property="og:image" content={src} />
@@ -96,8 +96,7 @@ const ProductDetail = () => {
                         }
                     })
                 }
-            </div> */}
-            Detail
+            </div>
         </div>
     )
 }
