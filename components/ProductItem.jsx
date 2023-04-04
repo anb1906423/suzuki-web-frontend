@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link';
 
 const ProductItem = (props) => {
     const addPointToPrice = (price) => {
@@ -8,7 +9,7 @@ const ProductItem = (props) => {
     return (
         <div className="product">
             <div className="product-link d-flex align-items-center justify-content-center">
-                <a href={props.href}><img src={props.src || props.imageTemp} alt={props.name} className="product-img" /></a>
+            <Link href="/san-pham/[id]" as={`/san-pham/${props.href}`}><img src={props.src || props.imageTemp} alt={props.name} className="product-img" /></Link>
             </div>
             <div className="product-infor text-center">
                 <div className="name">
