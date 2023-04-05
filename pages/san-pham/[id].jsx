@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Heading from '../../components/Heading';
@@ -7,8 +7,17 @@ import { homeAPI } from '../../config';
 
 const ProductDetail = ({ car, otherProducts }) => {
     const router = useRouter();
+    const [carDetail, setCarDetail] = useState('')
 
     const pathName = router.asPath.split('/').pop();
+
+    useEffect(() => {
+        car && car.map((item) => {
+            if (item.id == pathName) {
+                setCarDetail(item)
+            }
+        })
+    }, [pathName])
 
     const addPointToPrice = (price) => {
         if (price !== undefined) {
@@ -17,15 +26,13 @@ const ProductDetail = ({ car, otherProducts }) => {
         return "";
     }
 
-    console.log(car);
-
     return (
         <div className="product-detail-wrapper">
             <Head>
-                <title>{car.name}</title>
-                <meta property="og:image" content={car.src} />
-                <meta name="title" content={car.name} />
-                <meta name="description" content={car.description} />
+                <title>{carDetail.name}</title>
+                <meta property="og:image" content={carDetail.src} />
+                <meta name="title" content={carDetail.name} />
+                <meta name="description" content={carDetail.description} />
                 <meta name="robots" content="index, follow" />
                 <meta name="author" content="Suzuki cần thơ"></meta>
                 <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
@@ -37,26 +44,26 @@ const ProductDetail = ({ car, otherProducts }) => {
             <div className="product-detail">
                 <div className="product-infor d-flex flex-row flex-wrap justify-content-start">
                     <div className="product-imgs d-flex justify-content-center">
-                        <img src={car.src || car.imageTemp} alt="" />
+                        <img src={carDetail.src || carDetail.imageTemp} alt="" />
                     </div>
                     <div className="product-content">
                         <div className="product-name">
-                            <h3>{car.name}</h3>
+                            <h3>{carDetail.name}</h3>
                             <div className="price-group d-flex justify-content-between">
                                 <b>Giá bán:</b>
                                 <h4 className="text-danger">
-                                    {addPointToPrice(car.price)}&nbsp;VNĐ
+                                    {addPointToPrice(carDetail.price)}&nbsp;VNĐ
                                 </h4>
                             </div>
                             <div>
-                                <p dangerouslySetInnerHTML={{ __html: car.description }}></p>
+                                <p dangerouslySetInnerHTML={{ __html: carDetail.description }}></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="row">
-                    <Heading className="text-center" title={`Chi tiết ${car.name}`} />
-                    <p dangerouslySetInnerHTML={{ __html: car.moreInfo }}></p>
+                    <Heading className="text-center" title={`Chi tiết ${carDetail.name}`} />
+                    <p dangerouslySetInnerHTML={{ __html: carDetail.moreInfo }}></p>
                 </div>
             </div>
 
@@ -88,13 +95,14 @@ export async function getServerSideProps({ params }) {
     const { id } = params;
 
     try {
-        const res = await fetch(homeAPI + `/admin/${id}`);
-        const car = await res.json();
+        const res = await fetch(`${homeAPI}/admin/${id}`);
+        // const car = await res.json();
 
         const res2 = await fetch(homeAPI + '/admin');
         const allCars = await res2.json();
 
         const otherProducts = allCars.filter((item) => item.id !== id);
+        const car = allCars
 
         return {
             props: {
