@@ -61,7 +61,7 @@ const ProductDetail = ({ car, otherProducts }) => {
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row" style={{ padding: "0px 2%" }}>
                     <Heading className="text-center" title={`Chi tiết ${carDetail.name}`} />
                     <p dangerouslySetInnerHTML={{ __html: carDetail.moreInfo }}></p>
                 </div>
