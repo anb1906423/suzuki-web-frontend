@@ -41,7 +41,7 @@ const Contact = () => {
         {
           contacts && contacts.map((item, index) =>
             <div className='content-wrapper row' key={index}>
-              <div className="col-6">
+              <div className="col-md-6">
                 {
                   item.address != '' ?
                     <div>
@@ -71,7 +71,7 @@ const Contact = () => {
                     </div> : ''
                 }
               </div>
-              <div className="col-6">
+              <div className="col-md-6">
                 {
                   item.email != '' ?
                     <div>
