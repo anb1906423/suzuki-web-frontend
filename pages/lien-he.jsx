@@ -107,7 +107,18 @@ const Contact = () => {
       </div>
       <div className="map">
         {/* <Map /> */}
-        <img className="w-100 h-auto" src="./img/map.png" alt="" />
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.114232327323!2d105.79250601471162!3d10.00742219284605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0626326511777%3A0x45e4fadd9ddca041!2zOGEgVsO1IE5ndXnDqm4gR2nDoXAsIEjGsG5nIFBow7osIEPDoWkgUsSDbmcsIEPhuqduIFRoxqEgOTAwMDAwLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1680882158742!5m2!1svi!2s"
+          width="600"
+          height="520"
+          style={{
+            border: 0,
+            width: '100%',
+            borderRadius: '8px',
+            overflow: 'hidden',
+          }}
+          loading="lazy"
+        ></iframe>
       </div>
     </div>
   )
