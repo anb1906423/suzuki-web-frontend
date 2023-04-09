@@ -4,10 +4,13 @@ import { useRouter } from 'next/router';
 import Heading from '../../components/Heading';
 import ProductItem from '../../components/ProductItem';
 import { homeAPI } from '../../config';
+import Slider from '../../components/slider/slider';
+import { slidesXL7, colorsXL7, slidesErtiga, colorsErtiga } from '../../data/SliderData';
 
 const ProductDetail = ({ car, otherProducts }) => {
     const router = useRouter();
     const [carDetail, setCarDetail] = useState('')
+    const [sliderProps, setSliderProps] = useState({});
 
     const pathName = router.asPath.split('/').pop();
 
@@ -25,6 +28,16 @@ const ProductDetail = ({ car, otherProducts }) => {
         }
         return "";
     }
+
+    useEffect(() => {
+        if (carDetail.name && carDetail.name.toLowerCase().includes("xl7")) {
+            setSliderProps({ src: slidesXL7, colors: colorsXL7 });
+        } else if (carDetail.name && carDetail.name.toLowerCase().includes("ertiga")) {
+            setSliderProps({ src: slidesErtiga, colors: colorsErtiga });
+        } else {
+            setSliderProps({ src: "", colors: "" });
+        }
+    }, [carDetail.name]);
 
     return (
         <div className="product-detail-wrapper">
@@ -44,7 +57,8 @@ const ProductDetail = ({ car, otherProducts }) => {
             <div className="product-detail">
                 <div className="product-infor d-flex flex-row flex-wrap justify-content-start">
                     <div className="product-imgs d-flex justify-content-center">
-                        <img src={carDetail.src || carDetail.imageTemp} alt="" />
+                        {/* <img src={carDetail.src || carDetail.imageTemp} alt="" /> */}
+                        <Slider {...sliderProps} product_src={carDetail.src || carDetail.imageTemp} />
                     </div>
                     <div className="product-content">
                         <div className="product-name">
