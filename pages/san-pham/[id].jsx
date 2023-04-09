@@ -56,7 +56,7 @@ const ProductDetail = ({ car, otherProducts }) => {
             </Head>
             <div className="product-detail">
                 <div className="product-infor d-flex flex-row flex-wrap justify-content-start">
-                    <div className="product-imgs d-flex justify-content-center">
+                    <div className="product-imgs d-flex justify-content-center align-items-center">
                         {/* <img src={carDetail.src || carDetail.imageTemp} alt="" /> */}
                         <Slider {...sliderProps} product_src={carDetail.src || carDetail.imageTemp} />
                     </div>
