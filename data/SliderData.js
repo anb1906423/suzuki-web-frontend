@@ -23,3 +23,36 @@ export const slidesErtiga = [
 export const colorsErtiga = [
     '#ececec', '#872F32', '#8d8d8c', '#000', '#2A2D2F', '#534621'
 ]
+
+export const slidesCiaz = [
+    'https://suzuki-cantho.vn/public/upload/images/ciaz/mauxe/4.jpg',
+    'https://suzuki-cantho.vn/public/upload/images/ciaz/mauxe/2.jpg',
+    'https://suzuki-cantho.vn/public/upload/images/ciaz/mauxe/1.jpg',
+    'https://suzuki-cantho.vn/public/upload/images/ciaz/mauxe/5.jpg',
+]
+
+export const colorsCiaz = [
+    '#000', '#ESESES', '#8d8d8c', '#732B40'
+]
+
+export const slidesSwift = [
+    'https://suzuki-cantho.vn/public/upload/images/hinhsanpham/suzuki-swift-85661623807737.jpg',
+    'https://suzuki-cantho.vn/public/upload/images/swift/mauxe/mauxanh.jpg',
+    'https://suzuki-cantho.vn/public/upload/images/swift/mauxe/mauxam.jpg',
+    'https://suzuki-cantho.vn/public/upload/images/swift/mauxe/mautrang.jpg',
+    'https://suzuki-cantho.vn/public/upload/images/swift/mauxe/maubac.jpg',
+]
+
+export const colorsSwift = [
+    'red', 'blue', '#000', '#fff', '#ccc'
+]
+
+export const slidesCarryPro = [
+    'https://suzuki-cantho.vn/public/upload/images/hinhsanpham/super-carry-pro-9661623320245.jpg',
+    'https://suzuki-cantho.vn/public/upload/images/carrypro/1.jpg',
+    'https://suzuki-cantho.vn/public/upload/images/carrypro/2.jpg',
+]
+
+export const colorsCarryPro = [
+    '#EEEEEE', '#000', '#ccc'
+]

@@ -5,7 +5,13 @@ import Heading from '../../components/Heading';
 import ProductItem from '../../components/ProductItem';
 import { homeAPI } from '../../config';
 import Slider from '../../components/slider/slider';
-import { slidesXL7, colorsXL7, slidesErtiga, colorsErtiga } from '../../data/SliderData';
+import {
+    slidesXL7, colorsXL7,
+    slidesErtiga, colorsErtiga,
+    slidesCiaz, colorsCiaz,
+    slidesSwift, colorsSwift,
+    slidesCarryPro, colorsCarryPro
+} from '../../data/SliderData';
 
 const ProductDetail = ({ car, otherProducts }) => {
     const router = useRouter();
@@ -34,6 +40,12 @@ const ProductDetail = ({ car, otherProducts }) => {
             setSliderProps({ src: slidesXL7, colors: colorsXL7 });
         } else if (carDetail.name && carDetail.name.toLowerCase().includes("ertiga")) {
             setSliderProps({ src: slidesErtiga, colors: colorsErtiga });
+        } else if (carDetail.name && carDetail.name.toLowerCase().includes("ciaz")) {
+            setSliderProps({ src: slidesCiaz, colors: colorsCiaz });
+        } else if (carDetail.name && carDetail.name.toLowerCase().includes("swift")) {
+            setSliderProps({ src: slidesSwift, colors: colorsSwift });
+        } else if (carDetail.name && carDetail.name.toLowerCase().includes("carry pro")) {
+            setSliderProps({ src: slidesCarryPro, colors: colorsCarryPro });
         } else {
             setSliderProps({ src: "", colors: "" });
         }
