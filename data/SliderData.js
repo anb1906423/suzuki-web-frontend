@@ -67,5 +67,5 @@ export const slidesCarryTruck = [
 ]
 
 export const colorsCarryTruck = [
-    '#EEEEEE', '#ccc', '#000', '#EEEEEE', '#ccc', '#000'
+    '#EEEEEE', '#EEEEEE', '#EEEEEE', '#EEEEEE', '#EEEEEE', '#EEEEEE'
 ]
