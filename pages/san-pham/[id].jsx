@@ -10,7 +10,8 @@ import {
     slidesErtiga, colorsErtiga,
     slidesCiaz, colorsCiaz,
     slidesSwift, colorsSwift,
-    slidesCarryPro, colorsCarryPro
+    slidesCarryPro, colorsCarryPro,
+    slidesCarryTruck, colorsCarryTruck,
 } from '../../data/SliderData';
 
 const ProductDetail = ({ car, otherProducts }) => {
@@ -46,6 +47,8 @@ const ProductDetail = ({ car, otherProducts }) => {
             setSliderProps({ src: slidesSwift, colors: colorsSwift });
         } else if (carDetail.name && carDetail.name.toLowerCase().includes("carry pro")) {
             setSliderProps({ src: slidesCarryPro, colors: colorsCarryPro });
+        } else if (carDetail.name && carDetail.name.toLowerCase().includes("carry truck")) {
+            setSliderProps({ src: slidesCarryTruck, colors: colorsCarryTruck });
         } else {
             setSliderProps({ src: "", colors: "" });
         }

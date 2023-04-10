@@ -54,5 +54,18 @@ export const slidesCarryPro = [
 ]
 
 export const colorsCarryPro = [
-    '#EEEEEE', '#000', '#ccc'
+    '#EEEEEE', '#ccc', '#000'
+]
+
+export const slidesCarryTruck = [
+    'https://suzuki.com.vn/images/Super-Carry-Truck/2022/xe-tai-nhe-hang-dau-6.jpg',
+    'https://suzuki.com.vn/images/Super-Carry-Truck/2022/xe-tai-nhe-hang-dau-1.jpg',
+    'https://suzuki.com.vn/images/Super-Carry-Truck/2022/xe-tai-nhe-hang-dau-2.jpg',
+    'https://suzuki.com.vn/images/Super-Carry-Truck/2022/xe-tai-nhe-hang-dau-3.jpg',
+    'https://suzuki.com.vn/images/Super-Carry-Truck/2022/xe-tai-nhe-hang-dau-4.jpg',
+    'https://suzuki.com.vn/images/Super-Carry-Truck/2022/xe-tai-nhe-hang-dau-5.jpg',
+]
+
+export const colorsCarryTruck = [
+    '#EEEEEE', '#ccc', '#000', '#EEEEEE', '#ccc', '#000'
 ]

@@ -132,7 +132,7 @@
     } */
     .carousel-indicators button {
         max-width: 16px;
-        max-height: 2px;
+        max-height: 12px;
     }
     .carousel-control-prev-icon,
     .carousel-control-next-icon {

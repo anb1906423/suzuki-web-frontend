@@ -34,6 +34,6 @@
 
 @media (max-width: 576px) {
     .carousel .carousel-indicators button {
-        padding: 10px;
-    }
+        padding: 0px;
+    }   
 }
