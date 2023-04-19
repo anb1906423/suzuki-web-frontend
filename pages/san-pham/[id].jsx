@@ -13,6 +13,7 @@ import {
     slidesCarryPro, colorsCarryPro,
     slidesCarryTruck, colorsCarryTruck,
 } from '../../data/SliderData';
+import axios from 'axios'
 
 const ProductDetail = ({ car, otherProducts }) => {
     const router = useRouter();
@@ -120,7 +121,22 @@ const ProductDetail = ({ car, otherProducts }) => {
 
 export default ProductDetail;
 
-export async function getServerSideProps({ params }) {
+export async function getStaticPaths() {
+    const Res = await axios.get(`${homeAPI}/admin?page=${1}&limit=${100}`);
+
+    const path = Res?.data.map((x) => ({
+        params: {
+            id: x?.id,
+        },
+    }));
+
+    return {
+        paths: path,
+        fallback: true, // can also be true or 'blocking'
+    };
+}
+
+export async function getStaticProps({ params }) {
     const { id } = params;
 
     try {
