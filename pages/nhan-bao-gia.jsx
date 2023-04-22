@@ -11,16 +11,26 @@ const PHONENUMBER_REGEX = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 const PWD_REGEX = /^[a-zA-Z0-9]+$/
 const REGISTER_URL = `${homeAPI}/register`
+import { Select, Input } from 'antd';
+import { provinces } from '../data/ProvinceData'
 
 const register = () => {
   const [users, setUsers] = useState([])
+  const [carNameList, setCarNameList] = useState([])
 
   useEffect(() => {
     const getAllUsers = async () => {
       const result = await axios.get(`${homeAPI}`)
       setUsers(result.data)
     }
+    const getCarList = async () => {
+      const result = await axios.get(`${homeAPI}/admin`)
+      const carNames = result.data.map(car => car.name)
+      setCarNameList(carNames)
+    }
+
     getAllUsers()
+    getCarList()
   }, [])
 
   const fullNameRef = useRef();
@@ -48,6 +58,7 @@ const register = () => {
   const [pwdFocus, setPwdFocus] = useState(false)
 
   const [model, setModel] = useState('')
+  const [province, setProvince] = useState('')
 
   const [err, setErr] = useState()
   const [success, setSuccess] = useState("")
@@ -78,11 +89,11 @@ const register = () => {
     const v1 = EMAIL_REGEX.test(email);
     const v2 = PHONENUMBER_REGEX.test(phoneNumber);
     // const v3 = PWD_REGEX.test(pwd);
-    if (!v1) {
-      emailRef.current.focus();
-      setErr('Địa chỉ email không hợp lệ!');
-      return
-    }
+    // if (!v1) {
+    //   emailRef.current.focus();
+    //   setErr('Địa chỉ email không hợp lệ!');
+    //   return
+    // }
     if (!v2) {
       phoneNumberRef.current.focus();
       setErr('Số điện thoại không hợp lệ hoặc đã được sử dụng!');
@@ -101,7 +112,7 @@ const register = () => {
     // }
     try {
       var response = await axios.post(REGISTER_URL,
-        JSON.stringify({ fullName, phoneNumber, isCash, email, password, modelInterest: model }),
+        JSON.stringify({ fullName, phoneNumber, isCash, email, password, modelInterest: model, province }),
         {
           headers: {
             'Content-Type': 'application/json'
@@ -122,7 +133,7 @@ const register = () => {
       setEmail('')
       setPassword('')
       setModel('')
-      setSuccess("Chúng tôi đã nhận được yêu cầu báo giá của quý khách!")
+      setSuccess("Chức mừng! Bạn đã đăng ý nhận báo giá thành công!")
     } catch (err) {
       if (!err?.response) {
         setErr('No Server Response!')
@@ -157,12 +168,12 @@ const register = () => {
         <div className="main-form">
           <form action="" onSubmit={handleSubmit} className="form-log-up">
             <label htmlFor="fullname" className="d-block">Họ và tên:</label>
-            <input
+            <Input
               className="w-100"
               name="fullname"
               type="text"
               id="fullname"
-              placeholder="Họ và tên"
+              placeholder="Tên của bạn là..."
               onChange={(e) => setFullname(e.target.value)}
               onFocus={() => setFullnameFocus(true)}
               onBlur={() => setFullnameFocus(false)}
@@ -171,12 +182,12 @@ const register = () => {
               required
             />
             <label htmlFor="phonenumber" className="d-block">Số điện thoại:</label>
-            <input
+            <Input
               className="w-100"
               name="phonenumber"
               type="text"
               id="phonenumber"
-              placeholder="Số điện thoại"
+              placeholder="Số điện thoại của bạn là..."
               onChange={(e) => setPhoneNumber(e.target.value)}
               value={phoneNumber}
               ref={phoneNumberRef}
@@ -184,7 +195,7 @@ const register = () => {
               onBlur={() => setPhoneNumberFocus(false)}
               required
             />
-            <label htmlFor="email" className="d-block">Email:</label>
+            {/* <label htmlFor="email" className="d-block">Email:</label>
             <input
               className="w-100"
               name="email"
@@ -197,42 +208,73 @@ const register = () => {
               onFocus={() => setEmailFocus(true)}
               onBlur={() => setEmailFocus(false)}
               required
+            /> */}
+            <label htmlFor="model-car" className="d-block">Tất cả sản phẩm:</label>
+            <Select
+              showSearch
+              // value={model}
+              onChange={(value) => setModel(value)}
+              style={{
+                width: "100%",
+              }}
+              placeholder="Chọn sản phẩm bạn quan tâm"
+              // defaultValue="Chọn sản phẩm bạn quan tâm"
+              optionFilterProp="children"
+              filterOption={(input, option) => (option?.label ?? '').includes(input)}
+              filterSort={(optionA, optionB) =>
+                (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+              }
+              options={carNameList.map((item) => ({
+                label: item,
+                value: item
+              }))}
             />
-            <label htmlFor="model-car" className="d-block">Dòng xe:</label>
-            <input
-              className="w-100"
-              type="text"
-              name="model-car"
-              id="model-car"
-              placeholder="Dòng xe"
-              onChange={(e) => setModel(e.target.value)}
-              value={model}
-              ref={modelRef}
-              required
+            <label htmlFor="model-car" className="d-block">Chọn tỉnh thành:</label>
+            <Select
+              showSearch
+              // value={province}
+              onChange={(value) => setProvince(value)}
+              style={{
+                width: "100%",
+              }}
+              placeholder="Vui lòng chọn tỉnh thành"
+              optionFilterProp="children"
+              filterOption={(input, option) => (option?.label ?? '').includes(input)}
+              filterSort={(optionA, optionB) =>
+                (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+              }
+              options={provinces.map((province) => ({
+                label: province,
+                value: province,
+              }))}
             />
-            <label htmlFor="payment" className="d-block">Hình thức thanh toán bạn quan tâm:</label>
-            <div className="form-check-payment d-flex align-items-center justify-content-around">
-              <div className='cash'>
-                <input
-                  value='cash'
-                  id='cash'
-                  name="payment"
-                  type="radio"
-                  onClick={() => setIsCash(true)}
-                  defaultChecked={isCash}
-                />
-                <label name="" htmlFor="cash">Tiền mặt</label>
-              </div>
-              <div className='installment'>
-                <input
-                  value='installment'
-                  id='installment'
-                  name="payment"
-                  type="radio"
-                  onClick={() => setIsCash(false)}
-                // checked={!isCash}
-                />
-                <label type="" htmlFor="installment">Trả góp</label>
+            <label htmlFor="payment" className="d-block">Hình thức thanh toán:</label>
+            <div className="row">
+              <div className="col-6">
+                <div className="form-check-payment d-flex align-items-center justify-content-around">
+                  <div className='installment'>
+                    <input
+                      value='installment'
+                      id='installment'
+                      name="payment"
+                      type="radio"
+                      onClick={() => setIsCash(false)}
+                    // checked={!isCash}
+                    />
+                    <label type="" htmlFor="installment">Trả góp</label>
+                  </div>
+                  <div className='cash'>
+                    <input
+                      value='cash'
+                      id='cash'
+                      name="payment"
+                      type="radio"
+                      onClick={() => setIsCash(true)}
+                      defaultChecked={isCash}
+                    />
+                    <label name="" htmlFor="cash">Trả hết</label>
+                  </div>
+                </div>
               </div>
             </div>
             {

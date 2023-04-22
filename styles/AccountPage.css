@@ -24,6 +24,22 @@
     padding: 8px;
 }
 
+.register-wrapper .ant-select-selector {
+    height: 40px !important;
+}
+
+.register-wrapper .ant-select-selection-search {
+    height: 40px !important;
+    display: flex;
+    align-items: center;
+}
+
+.register-wrapper .ant-select-selection-item {
+    height: 40px !important;
+    display: flex;
+    align-items: center;
+}
+
 .register-wrapper input[type='radio'] {
     margin: 0px 6px;
 }
